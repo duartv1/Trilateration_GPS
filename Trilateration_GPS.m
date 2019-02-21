@@ -56,3 +56,20 @@ for n = [1:1:16] %run for all time intervals in [0, 300]
     r = vertcat(r, rNew');
 end
 r; %print final distance array
+
+%%%%%%%%%%%%%%%%Part B: Measured distance%%%%%%%%%%%%%%%
+%Calculate noise, delta i:
+rng(4777774444); %random seed 
+standardDev = 0.2/1000; %standard dev in km
+mean = 0;
+%initialize for loop variables:
+position_arr = [];
+r_i = 0;
+for m = [1:1:16]
+    %add "noise" to actual distance of beacon
+    r_i = r(m, :) + standardDev.*randn(1,8) + mean;
+    %concatenate this to our position array
+    position_arr = vertcat(position_arr, r_i);
+end
+
+position_arr; %generated position array with noise
